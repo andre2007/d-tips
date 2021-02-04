@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+output/
+/d-tips
+d-tips.so
+d-tips.dylib
+d-tips.dll
+d-tips.a
+d-tips.lib
+d-tips-test-*
+*.exe
+*.o
+*.obj
+*.lst
