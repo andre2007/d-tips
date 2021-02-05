@@ -1,0 +1,17 @@
+{
+    "authors": [
+        "Andre Pany"
+    ],
+    "copyright": "Copyright © 2021, Andre Pany",
+    "description": "Mkdocs generator for D tips.",
+    "license": "BSL-1.0",
+    "name": "d-tips",
+    "dependencies": {
+        "dyaml": "0.8.3"
+    },
+    "configurations": [{
+            "name": "debug",
+            "targetType": "executable"
+        }
+    ]
+}
