@@ -31,15 +31,14 @@ class MkdocsBuilder
         string topicsMenu = buildTopicsMenu(_database.folders, 4);
 
         string result = "site_name: D Tips\n" ~
-        "site_url: https://d-tips.sepany.de\n" ~
-        "repo_url: https://github.com/andre2007/d-tips/\n" ~
+        "site_url: https://andre2007.github.io/d-tips/\n" ~
         "site_author: Andre Pany\n" ~
         "site_description: Tips for D\n" ~
         "copyright: Andre Pany" ~
         "\n" ~
         "theme:\n" ~
         "  name: cinder\n" ~
-        "  colorscheme: github\n" ~
+        "  colorscheme: darcula\n" ~
         "  highlightjs: true\n" ~
         "  hljs_languages:\n" ~
         "    - d\n" ~
@@ -76,7 +75,7 @@ class MkdocsBuilder
             string result = "# Tags\n\n";
             foreach(tag; tags)
             {
-                result ~= "- " ~ "["~tag~"](/tags/__" ~ tag ~ ")\n";
+                result ~= "- " ~ "["~tag~"](/tags/" ~ tag ~ ")\n";
             }
             result.toFile(buildPath(_outputFolder, "docs", "tags.md"));
         }
@@ -95,7 +94,7 @@ class MkdocsBuilder
 
         foreach(tagCombination; tagsCombinations)
         {
-            string filePath = buildPath(_outputFolder, "docs", "tags", "__" ~ tagCombination.join("__") ~ ".md");
+            string filePath = buildPath(_outputFolder, "docs", "tags", tagCombination.join("__") ~ ".md");
             auto sr = _entryCache.search(tagCombination);
             string fileContent = "# Tags: " ~ tagCombination.join(", ") ~ "\n\n";
 
@@ -106,7 +105,7 @@ class MkdocsBuilder
 
             
 
-            fileContent ~= "\n\nRelated tags: " ~ sr.tags.map!(tag => "["~tag~"](/tags/__"~(tagCombination ~ [tag]).sort.join("__")~")").join(" ");
+            fileContent ~= "\n\nRelated tags: " ~ sr.tags.map!(tag => "["~tag~"](/tags/"~(tagCombination ~ [tag]).sort.join("__")~")").join(" ");
 
             fileContent.toFile(filePath);
         }
@@ -136,7 +135,7 @@ class MkdocsBuilder
                 foreach(entry; folder.entries)
                 {
                     string entryContent = readText(entry.filePath);
-                    entryContent ~= "\n\nTags: " ~ entry.tags.map!(t => "["~t~"](/tags/__" ~ t ~ ")").join(", ");
+                    entryContent ~= "\n\nTags: " ~ entry.tags.map!(t => "["~t~"](/tags/" ~ t ~ ")").join(", ");
                     entryContent.toFile(buildPath(_outputFolder, "docs", entry.relFilePath));
 
                 }
