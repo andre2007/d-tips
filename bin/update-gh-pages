@@ -21,6 +21,7 @@ pip install --upgrade pip
 pip install -r ./requirements.txt
 cd output
 mkdocs build -d "$build_dir"
+cd ..
 find -maxdepth 1 ! -name .git ! -name CNAME ! -name "output" ! -name . -exec rm -rv {} \;
 mv ./output/site/* ./
 rm -r output
