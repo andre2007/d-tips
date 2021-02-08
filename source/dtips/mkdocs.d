@@ -1,7 +1,7 @@
 module dtips.mkdocs;
 
 import std.path, std.file, std.stdio, std.string;
-import std.algorithm, std.array;
+import std.algorithm, std.array, std.range;
 import dtips.database, dtips.entrycache;
 
 class MkdocsBuilder
@@ -75,7 +75,7 @@ class MkdocsBuilder
             string result = "# Tags\n\n";
             foreach(tag; tags)
             {
-                result ~= "- " ~ "["~tag~"](/tags/" ~ tag ~ ")\n";
+                result ~= "- " ~ "["~tag~"](./" ~ tag ~ ")\n";
             }
             result.toFile(buildPath(_outputFolder, "docs", "tags.md"));
         }
@@ -100,12 +100,12 @@ class MkdocsBuilder
 
             foreach(entry; sr.entries)
             {
-                fileContent ~= "- [" ~ entry.title ~ "](/" ~ entry.relFilePath.stripExtension ~ ")\n";
+                fileContent ~= "- [" ~ entry.title ~ "](../../" ~ entry.relFilePath.stripExtension ~ ")\n";
             }
 
             
 
-            fileContent ~= "\n\nRelated tags: " ~ sr.tags.map!(tag => "["~tag~"](/tags/"~(tagCombination ~ [tag]).sort.join("__")~")").join(" ");
+            fileContent ~= "\n\nRelated tags: " ~ sr.tags.map!(tag => "["~tag~"](../"~(tagCombination ~ [tag]).sort.join("__")~")").join(" ");
 
             fileContent.toFile(filePath);
         }
@@ -129,17 +129,18 @@ class MkdocsBuilder
 
     void buildEntryFiles(Folder[] folders)
     {
-        void buildRecursive(Folder[] folders) {
+        void buildRecursive(Folder[] folders, int level = 1) {
             foreach(folder; folders)
             {
                 foreach(entry; folder.entries)
                 {
                     string entryContent = readText(entry.filePath);
-                    entryContent ~= "\n\nTags: " ~ entry.tags.map!(t => "["~t~"](/tags/" ~ t ~ ")").join(", ");
+                    string parentFolderPath = (level + 1).iota.map!(i => "../").join;
+                    entryContent ~= "\n\nTags: " ~ entry.tags.map!(t => "["~t~"](" ~ parentFolderPath ~ "tags/" ~ t ~ ")").join(", ");
                     entryContent.toFile(buildPath(_outputFolder, "docs", entry.relFilePath));
 
                 }
-                buildRecursive(folder.folders);
+                buildRecursive(folder.folders, level + 1);
             }
         }
         buildRecursive(folders);
