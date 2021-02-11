@@ -9,6 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-      curl -OL https://github.com/andre2007/d-tips-generator/releases/download/v1.0.0/dtg-1.0.0-linux-x86_64.tar.xz
-      tar -xf dtg-1.0.0-linux-x86_64.tar.xz
-      ./dtg --validate     
+       curl -OL https://github.com/andre2007/d-tips-generator/releases/download/v1.0.0/dtg-1.0.0-linux-x86_64.tar.xz
+       tar -xf dtg-1.0.0-linux-x86_64.tar.xz
+       ./dtg --validate
