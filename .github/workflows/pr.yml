@@ -3,14 +3,12 @@ name: pr voter
 on: [pull_request]
 
 jobs:
-  build-deploy:
+  pr-voter:
     runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
-
-    - uses: dlang-community/setup-dlang@v1
-      with:
-        compiler: dmd-latest
-    - name: Run validation
-      run: dub -- validate
+    - run: |
+      curl -OL https://github.com/andre2007/d-tips-generator/releases/download/v1.0.0/dtg-1.0.0-linux-x86_64.tar.xz
+      tar -xf dtg-1.0.0-linux-x86_64.tar.xz
+      ./dtg --validate     
