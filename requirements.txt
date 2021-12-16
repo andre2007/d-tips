@@ -1,3 +1,4 @@
 mkdocs
 mkdocs-cinder
+mkdocs-material-extensions
 pygments
