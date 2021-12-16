@@ -8,12 +8,13 @@ tags:
 ## File structure
 
 ```
-  dub.json
-- source
-  - my
-      app.d
-    - test
-        testapp.d
+sample
+├── dub.json
+└── source
+    └── my
+        ├── app.d
+        └── test
+            └── testapp.d
 ```
 
 ## dub.json
