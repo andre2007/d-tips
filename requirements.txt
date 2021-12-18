@@ -1,6 +1,0 @@
-mkdocs
-mkdocs-cinder
-mkdocs-material-extensions
-material
-pygments
-pymdown-extensions
